@@ -4,7 +4,7 @@ from random import randint
 from functools import reduce
 import itertools
 
-def binary(L,x):  #if found, return index; else return the index of the first greater item
+def binary(L,x):  #returns smallest index m satisfying L[m]>=x
     if x<L[0] or x>L[-1]:
         return -1
     minI=0
@@ -27,15 +27,15 @@ def binary(L,x):  #if found, return index; else return the index of the first gr
     return minI+1
 
 
-def prod(A):
+def prod(A): #calculates the product of all numbers in A
     return reduce((lambda x, y: x * y), A)
     
-def factors(d):
+def factors(d): #d is a dictionary generated via factorization
     L=[[k**i for i in range(d[k]+1)] for k in d.keys()]  
     c=[prod(l) for l in itertools.product(*L)]
     return sorted(c)
 
-def sift(n):
+def sift(n): #returns a list containing every prime no greater than n
     A=[True]*(n+1)
     A[1]=False
     max_i=int(math.sqrt(n))+1
@@ -44,7 +44,7 @@ def sift(n):
             A[i*i::i]=[False]*(n//i+1-i)
     return [int(i) for i in range(1,n+1) if A[i]]
     
-def decompWithList(n,L):
+def decompWithList(n,L): #factorization with prime list
     assert (L[-1]**2>n),'prime list not sufficiently long'       
     current=n
     decomp={}
@@ -65,7 +65,7 @@ def decompWithList(n,L):
                     break
     return decomp
     
-def decompAll(N):
+def decompAll(N): #factoring every number no greater than N
     D=[]
     for i in range(N+1):
         D.append({})
